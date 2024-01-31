@@ -1,31 +1,31 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useState } from 'react';
+
+import SearchLocation from './components/SearchLocation/SearchLocation';
+
 import './App.scss'
 
-import useThrottle from './hooks/useThrottle';
-
-import { searchBestCityByPhrase } from './utils/search';
-
-import IconMarker from './components/Icon/IconMarker';
-import Button from './components/Button';
-import Input from './components/Input';
-
-import SearchByTyping from './components/SearchByTyping/SearchByTyping';
-
 function App() {
+  const [{
+    closestId,
+    latitude,
+    longitude,
+  }, setLocation] = useState({
+    closestId: '',
+    latitude: 0,
+    longitude: 0,
+  });
+
+
   return (
     <>
       <header>Weather status</header>
       <main>
-        <br />
-        <br />
-        <Button>
-          <IconMarker />
-          <span>Na podstawie lokalizacji</span>
-        </Button>
-        <div className="or">
-          lub
-        </div>
-        <SearchByTyping />
+        <SearchLocation
+          closestId={closestId}
+          latitude={latitude}
+          longitude={longitude}
+          setLocation={setLocation}
+        />
       </main>
     </>
   )

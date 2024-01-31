@@ -41,8 +41,31 @@ const {
 
 const all = [...cities, ...villages];
 
+export const getLocationById = (id: string) => {
+    return all.find(({ id: locationId }) => id === locationId);
+};
 
-export const searchBestCityByPhrase = (phrase: string) => {
+const sortLocations = (phraseLowerCased: string) => (a: ILocation, b: ILocation) => {
+    console.log({
+        x: a.name.toLocaleLowerCase(),
+        phraseLowerCased,
+    });
+
+    if (a.name.toLocaleLowerCase() === phraseLowerCased) {
+        console.log(phraseLowerCased);
+        console.log(phraseLowerCased);
+        console.log(phraseLowerCased);
+        console.log(phraseLowerCased);
+        console.log(phraseLowerCased);
+        console.log(phraseLowerCased);
+
+        return -1;
+    }
+
+    return 1;
+};
+
+export const searchBestLocationByPhrase = (phrase: string) => {
     if (phrase.length < 3) {
         return [];
     }
@@ -55,12 +78,12 @@ export const searchBestCityByPhrase = (phrase: string) => {
             return name.toLocaleLowerCase().includes(phraseLowerCased)
                 || district.toLocaleLowerCase().includes(phraseLowerCased)
                 || commune.toLocaleLowerCase().includes(phraseLowerCased);
-        });
+        }).sort(sortLocations(phraseLowerCased));
     }
 
     return all.filter(({ name, district, commune }) => {
         return name.toLocaleLowerCase().includes(phraseLowerCased)
             || district.toLocaleLowerCase().includes(phraseLowerCased)
             || commune.toLocaleLowerCase().includes(phraseLowerCased);
-    });
+    }).sort(sortLocations(phraseLowerCased));
 };

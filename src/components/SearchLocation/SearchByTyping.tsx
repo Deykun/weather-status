@@ -1,36 +1,66 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 
 import useThrottle from '../../hooks/useThrottle';
 
-import { searchBestCityByPhrase } from '../../utils/search';
+import {
+  getLocationById,
+  searchBestLocationByPhrase,
+} from '../../utils/search';
 
 import IconCity from '../Icon/IconCity';
 import IconVillage from '../Icon/IconVillage';
 
-// import IconMarker from './components/Icon/IconMarker';
-// import Button from './components/Button';
 import Button from '../Button';
 import Input from '../Input';
 
 import './SearchByTyping.scss'
 
 const addMatchHighlightToString = (text: string, phrase: string) => {
+  let newText = text;
   const regExp = new RegExp(phrase, "ig");
-  const replaceMask = `<span class="result-match">${phrase}</span>`;
+
+  const matches = newText.match(regExp) || [];
+
+  matches.forEach((match) => {
+    newText = newText.replaceAll(match, `<span class="result-match">${match}</span>`);
+  });
   
-  return text.replace(regExp, replaceMask);
+  return newText;
 };
 
-const SearchByTyping = () => {
+interface Props {
+  // setLocation: React.ReactNode,
+}
+
+const SearchLocation = ({ setLocation, closestId, onClose }: Props) => {
   const [phrase, setPhrase] = useState('');
 
   const searchPhrase = useThrottle(phrase, 500);
 
   const searchResult = useMemo(() => {
-    return searchBestCityByPhrase(searchPhrase);
+    return searchBestLocationByPhrase(searchPhrase);
   }, [searchPhrase]);
 
-  console.log(searchResult)
+  const handleSetPickedLocation = useCallback((id: string) => {
+    if (closestId === id) {
+      onClose();
+
+      return;
+    }
+
+    const {
+      latitude,
+      longitude,
+    } = getLocationById(id) || {};
+
+    if (latitude && longitude) {
+      setLocation(({
+        closestId: id,
+        latitude,
+        longitude,
+      }));
+    }
+  }, [setLocation])
 
   return (
     <>
@@ -38,7 +68,7 @@ const SearchByTyping = () => {
         <ul className="result-results">
           {searchResult.map(({ id, type, name, province, district, commune }) => (
             <li key={id}>
-              <Button className="result-button">
+              <Button className="result-button" onClick={() => handleSetPickedLocation(id)}>
                 <h2>
                   {type === 'city' ? <IconCity /> : <IconVillage />}
                   <span dangerouslySetInnerHTML={{__html: addMatchHighlightToString(name, searchPhrase) }} />
@@ -52,4 +82,4 @@ const SearchByTyping = () => {
   )
 }
 
-export default SearchByTyping
+export default SearchLocation
