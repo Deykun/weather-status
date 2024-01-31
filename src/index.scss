@@ -1,0 +1,38 @@
+:root {
+  --actionHeight: 65px;
+  --actionRadius: 22px;
+  --actionText: #c47f00;
+  --actionButtonBackground: #f5ebd8;
+  --actionInputBackground: #f7f6f5;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  color: #71706f;
+  background-color: white;
+  font-family: 'Lexend', sans-serif;
+}
+
+:focus {
+  outline-offset: 4px;
+  outline: 3px solid #ffc863;
+}
+
+button,
+input {
+  font-family: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+*,
+::after,
+::before {
+  box-sizing: border-box;
+}

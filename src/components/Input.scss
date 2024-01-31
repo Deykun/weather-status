@@ -1,0 +1,16 @@
+.input {
+    display: block;
+    width: 100%;
+    text-align: center;
+    background: none;
+    border: none;
+    height: var(--actionHeight);
+    line-height: var(--actionHeight);
+    letter-spacing: 0.05em;
+    padding: 0 30px;
+    caret-color: black;
+    color: var(--actionText);
+    background-color: var(--actionInputBackground);
+    border-radius: var(--actionRadius);
+    border: 2px solid var(--actionButtonBackground);
+}

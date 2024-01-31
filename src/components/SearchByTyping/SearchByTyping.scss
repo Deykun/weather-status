@@ -1,0 +1,53 @@
+.result-results {
+    list-style: none;
+    text-align: left;
+
+    &,
+    li {
+        display: block;
+        width: 100%;
+    }
+
+    li {
+        margin-bottom: 12px;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}
+
+.result-button {
+    display: block;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    width: 100%;
+    text-align: left;
+    height: auto;
+    line-height: 20px;
+
+    h2 {
+        display: flex;
+        align-items: center;
+        font-size: 16px;
+        margin-bottom: 3px;
+
+        svg {
+            height: 24px;
+            width: 24px;
+        }
+    }
+
+    p {
+        margin-bottom: 0;
+        font-size: 12px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    .result-match {
+        color: #62491b;
+        font-weight: bolder;
+    }
+}

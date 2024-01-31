@@ -1,0 +1,29 @@
+.button {
+    width: 100%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    background: none;
+    border: none;
+    height: var(--actionHeight);
+    line-height: var(--actionHeight);
+    padding: 0 30px;
+    color: var(--actionText);
+    background-color: var(--actionButtonBackground);
+    border-radius: var(--actionRadius);
+    border: 2px solid transparent;
+
+    svg {
+        fill: currentColor;
+        height: 24px;
+        width: 24px;
+
+        &:first-child:not(:last-child)  {
+            margin-right: 15px;
+        }
+
+        &:last-child:not(:first-child) {
+            margin-left: 15px;
+        }
+    }
+}

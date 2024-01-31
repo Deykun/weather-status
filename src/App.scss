@@ -1,0 +1,25 @@
+header,
+main {
+    text-align: center;
+    margin: 0 auto;
+    max-width: 350px;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+main {
+    min-height: 100vh;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.or {
+    margin: 15px 0;
+}
