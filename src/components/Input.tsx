@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 
-import './input.scss'
+import './Input.scss'
 
 interface Props {
     placeholder?: string,
