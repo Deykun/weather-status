@@ -6,7 +6,13 @@
     max-height: calc(100% + 4px);
     max-width: var(--containerWidth);
     background-color: white;
-    border: 2px solid var(--actionButtonBackground);
+
+    @media (min-width: 500px) {
+        bottom: -2px;
+        left: -2px;
+        border: 2px solid var(--actionButtonBackground);
+    }
+
     overflow: auto;
     list-style: none;
     text-align: left;
@@ -42,6 +48,7 @@
         margin-bottom: 3px;
 
         svg {
+            flex-shrink: 0;
             height: 24px;
             width: 24px;
         }

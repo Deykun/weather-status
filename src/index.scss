@@ -5,7 +5,11 @@
   --actionButtonBackground: #f5ebd8;
   --actionButtonBackgroundActive: #fff0d4;
   --actionInputBackground: #f7f6f5;
-  --containerWidth: 350px;
+  --containerWidth: 100%;
+
+  @media (min-width: 500px) {
+    --containerWidth: 350px;
+  }
 }
 
 * {

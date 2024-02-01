@@ -26,22 +26,17 @@ const SearchByBrowserGeolocation = ({
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const { latitude, longitude } = position.coords;
-        console.log({
-          latitude, longitude,
-        });
+
         const bestId = getClosestLocationToCordinates({
           latitude,
           longitude,
         });
-
-        console.log(bestId);
 
         setNewLocation({
           closestId: bestId,
           latitude,
           longitude,
         });
-        // const x = getDistanceBetweenTwoPointsInKm(la)
 
         setErrorMessage('');
         setIsGeolocating(false);
@@ -76,7 +71,7 @@ const SearchByBrowserGeolocation = ({
       </p>}
       <Button onClick={handleClick} isDisabled={isGeolocating} isLoading={isGeolocating}>
         <IconMarker />
-        <span>Na podstawie lokalizacji</span>
+        <span>Ustal lokalizację</span>
       </Button>
     </>
   )

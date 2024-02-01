@@ -105,36 +105,39 @@ const WeatherLocation = ({
     }
 
     return (
-        <div className="weather-location">
-            {isLoading ? <>Pobieranie...</> : <>
-                <span
-                    className={clsx(
-                        'weather-location-icon-wrapper', { 
-                        'weather-location-icon-wrapper-with-loaded': isLoaded,
-                    })}
-                >
-                    <img
-                        className="weather-location-icon"
-                        src={`./weather-icons/${weatherDescription}.svg`}
-                        onLoad={onLoad}
-                    />
-                </span>
-                <small>
-                    {weatherDescription}
-                </small>
-                <strong className="weather-location-temperature">
-                    {temperature}<sup>o</sup>{unitTemperature? unitTemperature[0].toUpperCase() : ''}
-                </strong>
-                <div className="weather-location-data">
-                    <p>
-                        Opady: {precipation} {unitPrecipitation}
-                    </p>
-                    <p>
-                        Wiatr: {windSpeed} {unitWindSpeed}
-                    </p>
-                </div>           
-            </>}
-        </div>
+        <>
+            <div className="weather-location">
+                {isLoading ? <>Pobieranie pogody...</> : <>
+                    <span
+                        className={clsx(
+                            'weather-location-icon-wrapper', { 
+                            'weather-location-icon-wrapper-with-loaded': isLoaded,
+                        })}
+                    >
+                        <img
+                            className="weather-location-icon"
+                            src={`./weather-icons/${weatherDescription}.svg`}
+                            onLoad={onLoad}
+                        />
+                    </span>
+                    <small>
+                        {weatherDescription}
+                    </small>
+                    <strong className="weather-location-temperature">
+                        {temperature}<sup>o</sup>{unitTemperature? unitTemperature[0].toUpperCase() : ''}
+                    </strong>
+                    <div className="weather-location-data">
+                        <p>
+                            Opady: {precipation} {unitPrecipitation}
+                        </p>
+                        <p>
+                            Wiatr: {windSpeed} {unitWindSpeed}
+                        </p>
+                    </div>           
+                </>}
+            </div>
+            {!isLoading && <p></p>}
+        </>
     );
 };
 

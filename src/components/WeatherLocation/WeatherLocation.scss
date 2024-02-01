@@ -13,6 +13,14 @@
     border-top-left-radius: 45px;
     border-bottom-left-radius: 45px;
     text-shadow: 0 0 6px #fff, 0 0 4px #fff, 0 0 2px #fff;
+
+    border-top-left-radius: 22px;
+    border-bottom-left-radius: 22px;
+
+    @media (min-width: 500px) {
+        border-top-left-radius: 45px;
+        border-bottom-left-radius: 45px;
+    }
 }
 
 @keyframes fadeInIcon {
@@ -31,12 +39,21 @@
     left: 12px;
     transform: translateY(-50%);
     background-color: #f5ebd8;
-    height: 120px;
-    width: 120px;
+    height: 70px;
+    width: 70px;
+    padding: 12px;
+    border-radius: 12px;
+
+    @media (min-width: 500px) {
+        height: 120px;
+        width: 120px;
+        border-radius: 40px;
+        padding: 22px;
+    }
+
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    border-radius: 40px;
     opacity: 0;
 
     &.weather-location-icon-wrapper-with-loaded {
@@ -45,8 +62,8 @@
 }
 
 .weather-location-icon {
-    height: 80px;
-    width: 120px;
+    height: 100%;
+    width: 100%;
     // https://codepen.io/sosuke/pen/Pjoqqp - great tool!
     filter: invert(48%) sepia(97%) saturate(472%) hue-rotate(4deg) brightness(89%) contrast(113%);
 }
