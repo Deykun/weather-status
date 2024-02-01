@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
+import { ILocation } from './types';
+
 import SearchLocation from './components/SearchLocation/SearchLocation';
 import WeatherForLocation from './components/WeatherLocation/WeatherLocation';
 
@@ -13,7 +15,7 @@ function App() {
     closestId,
     latitude,
     longitude,
-  }, setLocation] = useState({
+  }, setLocation] = useState<ILocation>({
     closestId: '',
     latitude: 0,
     longitude: 0,

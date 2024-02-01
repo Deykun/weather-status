@@ -1,4 +1,6 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState, Dispatch, SetStateAction } from 'react';
+
+import { ILocation } from '../../types';
 
 import { getDistanceBetweenTwoPointsInKm } from '../../utils/distance';
 import { getLocationById } from '../../utils/search';
@@ -16,6 +18,7 @@ interface Props {
   latitude: number
   longitude: number,
   // setLocation,
+  setLocation: Dispatch<SetStateAction<ILocation>>
 }
 
 const SearchLocation = ({
@@ -57,9 +60,9 @@ const SearchLocation = ({
       commune,
       distnceKm,
     };
-  }, [closestId]);
+  }, [closestId, latitude, longitude]);
 
-  const handleNewLocation = (location) => {
+  const handleNewLocation = (location: ILocation) => {
     setLocation(location)
     setIsSettingUp(false);
   }

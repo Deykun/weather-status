@@ -1,18 +1,12 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import clsx from 'clsx';
 
-import { getDistanceBetweenTwoPointsInKm } from '../../utils/distance';
-import { getLocationById } from '../../utils/search';
-
-import IconMarker from '../Icon/IconMarker';
-import IconMarkerAlt from '../Icon/IconMarkerAlt';
-
-import Button from '../Button';
+import { ICordinates, IWeatherStatus } from '../../types';
 
 import './WeatherLocation.scss';
 
-export const getWeatherForCordinates = async ({ latitude, longitude }) => {
+export const getWeatherForCordinates = async ({ latitude, longitude }: ICordinates): Promise<IWeatherStatus | undefined> => {
     const isReady = latitude !== 0 && longitude !== 0;
     if (!isReady) {
         return;
@@ -80,7 +74,7 @@ const WeatherLocation = ({
 
     const {
         isLoading,
-        error,
+        // error,
         data,
     } = useQuery({
         queryFn: () => getWeatherForCordinates({
@@ -129,7 +123,7 @@ const WeatherLocation = ({
                     {weatherDescription}
                 </small>
                 <strong className="weather-location-temperature">
-                    {temperature}<sup>o</sup>{unitTemperature.at(0).toUpperCase()}
+                    {temperature}<sup>o</sup>{unitTemperature? unitTemperature[0].toUpperCase() : ''}
                 </strong>
                 <div className="weather-location-data">
                     <p>

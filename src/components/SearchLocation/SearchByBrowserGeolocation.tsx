@@ -1,5 +1,6 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useState } from 'react';
 
+import { ILocation } from '../../types';
 import { getClosestLocationToCordinates } from '../../utils/search';
 
 import IconMarker from '../Icon/IconMarker';
@@ -7,21 +8,13 @@ import IconMarkerError from '../Icon/IconMarkerError';
 
 import Button from '../Button';
 
-import SearchByTyping from './SearchByTyping';
-
 import './SearchByBrowserGeolocation.scss';
 
 interface Props {
-  closestId: string,
-  latitude: number
-  longitude: number,
-  // setLocation,
+  setNewLocation: (location: ILocation) => void,
 }
 
 const SearchByBrowserGeolocation = ({
-  closestId,
-  latitude,
-  longitude,
   setNewLocation,
 }: Props) => {
   const [errorMessage, setErrorMessage] = useState('');

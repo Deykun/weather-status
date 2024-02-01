@@ -1,11 +1,13 @@
 import { useCallback, useMemo, useState } from 'react';
 
-import useThrottle from '../../hooks/useThrottle';
+import { ILocation } from '../../types';
 
 import {
   getLocationById,
   searchBestLocationByPhrase,
 } from '../../utils/search';
+
+import useThrottle from '../../hooks/useThrottle';
 
 import IconCity from '../Icon/IconCity';
 import IconVillage from '../Icon/IconVillage';
@@ -29,7 +31,9 @@ const addMatchHighlightToString = (text: string, phrase: string) => {
 };
 
 interface Props {
-  // setLocation: React.ReactNode,
+  closestId: string,
+  onClose: () => void,
+  setNewLocation: (location: ILocation) => void,
 }
 
 const SearchLocation = ({ setNewLocation, closestId, onClose }: Props) => {

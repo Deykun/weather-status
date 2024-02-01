@@ -1,5 +1,6 @@
 import polishCitiesAndVillages from 'polskie-miejscowosci';
 import { getDistanceBetweenTwoPointsInKm } from './distance';
+import { ICordinates } from '../types';
 
 interface ILocation {
     id: string,
@@ -46,7 +47,7 @@ export const getLocationById = (id: string) => {
     return all.find(({ id: locationId }) => id === locationId);
 };
 
-export const getClosestLocationToCordinates = (cordinateToCompare) => {
+export const getClosestLocationToCordinates = (cordinateToCompare: ICordinates) => {
     const {
         id,
     } = all.reduce((stack, item) => {
