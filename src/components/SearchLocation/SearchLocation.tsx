@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { getDistanceBetweenTwoPointsInKm } from '../../utils/distance';
 import { getLocationById } from '../../utils/search';
 
-import IconMarker from '../Icon/IconMarker';
+import IconGlobe from '../Icon/IconGlobe';
 import IconMarkerAlt from '../Icon/IconMarkerAlt';
 
 import Button from '../Button';
@@ -77,16 +77,26 @@ const SearchLocation = ({
         </div>
         <SearchByTyping closestId={closestId} onClose={() => setIsSettingUp(false)} setNewLocation={handleNewLocation} />
       </> : <Button className="result-button" onClick={() => setIsSettingUp(true)}>
-          <h2>
-            <IconMarkerAlt />
-            <span>
-              {name}
-              {distnceKm > 1 && <span className="result-distance">{distnceKm.toFixed(2)}km</span>}
-            </span>
-          </h2>
-          <p>
-            {province}, {district}, {commune}
-          </p>
+          {distnceKm < 100 ? <>
+            <h2>
+              <IconMarkerAlt />
+              <span>
+                {name}
+                {distnceKm > 1 && <span className="result-distance">{distnceKm.toFixed(2)}km</span>}
+              </span>
+            </h2>
+            <p>
+              {province}, {district}, {commune}
+            </p>
+          </> : <>
+            <h2>
+              <IconGlobe />
+              <span>Ziemia</span>
+            </h2>
+            <p>
+              Współrzędne {latitude.toFixed(3)}, {longitude.toFixed(3)}
+            </p>
+          </>}
       </Button>}
     </>
   )

@@ -1,0 +1,30 @@
+.weather-location {
+    width: 100%;
+    padding: 20px;
+    text-align: right;
+    margin-bottom: 12px;
+    background-color: #f7f6f5;
+    border-radius: 5px;
+    border: 2px solid var(--actionButtonBackground);
+    position: relative;
+    overflow: hidden;
+}
+
+.weather-location-icon {
+    position: absolute;
+    top: 50%;
+    left: 24px;
+    transform: translateY(-50%);
+    height: 80px;
+    width: 120px;
+    opacity: 0.3;
+    // https://codepen.io/sosuke/pen/Pjoqqp - great!
+    filter: invert(54%) sepia(15%) saturate(5246%) hue-rotate(13deg) brightness(90%) contrast(101%);
+}
+
+.weather-location-temperature {
+    display: block;
+    font-size: 30px;
+    color: var(--actionText);
+    letter-spacing: 0.05em;
+}

@@ -32,6 +32,13 @@ interface Props {
   // setLocation: React.ReactNode,
 }
 
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min) + min); // Максимум не включается, минимум включается
+}
+
+
 const SearchLocation = ({ setNewLocation, closestId, onClose }: Props) => {
   const [phrase, setPhrase] = useState('');
 
@@ -60,10 +67,21 @@ const SearchLocation = ({ setNewLocation, closestId, onClose }: Props) => {
         longitude,
       }));
     }
-  }, [setNewLocation])
+  }, [setNewLocation]);
+
+  const handleSetRandomLocation = () => {
+    setNewLocation(({
+      closestId: '1211',
+      latitude: getRandomInt(-20, 40),
+      longitude: getRandomInt(0, 80),
+    }));
+  }
 
   return (
     <>
+        <Button className="result-button" onClick={handleSetRandomLocation}>
+          <span>Random location</span>
+        </Button>
         <Input placeholder="Wyszukaj miejscowość" value={phrase} onChange={setPhrase}/>
         <ul className="result-results">
           {searchResult.map(({ id, type, name, province, district, commune }) => (
