@@ -70,27 +70,24 @@ const SearchLocation = ({
 
   return (
     <>
-      <header>Weather status</header>
-      <main>
-        {shouldShowEditLocation ? <>
-          <SearchByBrowserGeolocation setNewLocation={handleNewLocation} />
-          <div className="or">
-            lub
-          </div>
-          <SearchByTyping closestId={closestId} onClose={() => setIsSettingUp(false)} setNewLocation={handleNewLocation} />
-        </> : <Button className="result-button" onClick={() => setIsSettingUp(true)}>
-            <h2>
-              <IconMarkerAlt />
-              <span>
-                {name}
-                {distnceKm > 1 && <span className="result-distance">{distnceKm.toFixed(2)}km</span>}
-              </span>
-            </h2>
-            <p>
-              {province}, {district}, {commune}
-            </p>
-        </Button>}
-      </main>
+      {shouldShowEditLocation ? <>
+        <SearchByBrowserGeolocation setNewLocation={handleNewLocation} />
+        <div className="or">
+          lub
+        </div>
+        <SearchByTyping closestId={closestId} onClose={() => setIsSettingUp(false)} setNewLocation={handleNewLocation} />
+      </> : <Button className="result-button" onClick={() => setIsSettingUp(true)}>
+          <h2>
+            <IconMarkerAlt />
+            <span>
+              {name}
+              {distnceKm > 1 && <span className="result-distance">{distnceKm.toFixed(2)}km</span>}
+            </span>
+          </h2>
+          <p>
+            {province}, {district}, {commune}
+          </p>
+      </Button>}
     </>
   )
 }
