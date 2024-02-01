@@ -1,4 +1,4 @@
-# Wheater status
+# Weather status
 
 https://deykun.github.io/weather-status/
 
