@@ -17,7 +17,6 @@ interface Props {
   closestId: string,
   latitude: number
   longitude: number,
-  // setLocation,
   setLocation: Dispatch<SetStateAction<ILocation>>
 }
 
@@ -66,8 +65,6 @@ const SearchLocation = ({
     setLocation(location)
     setIsSettingUp(false);
   }
-
-  // getLocationById
 
   const shouldShowEditLocation = isSettingUp || closestId === '';
 

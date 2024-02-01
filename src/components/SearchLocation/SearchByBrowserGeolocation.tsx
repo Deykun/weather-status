@@ -48,15 +48,15 @@ const SearchByBrowserGeolocation = ({
 
         switch (code) {
           case GeolocationPositionError.TIMEOUT:
-            setErrorMessage('Brak odpowiedzi w wymaganym czasie...');
+            setErrorMessage('Brak odpowiedzi w wymaganym czasie.');
 
             break;
           case GeolocationPositionError.PERMISSION_DENIED:
-            setErrorMessage('Odmówiono dostępu do lokalizacji, pozwolenie na udostępnienie lokalizacji w lewym górnym rogu.');
+            setErrorMessage('Odmówiono dostępu do lokalizacji, pozwolenie na udostępnienie lokalizacji znajduje się w lewym górnym rogu.');
 
             break;
           case GeolocationPositionError.POSITION_UNAVAILABLE:
-            setErrorMessage('Nie ustalono lokalizacji');
+            setErrorMessage('Nie ustalono lokalizacji.');
 
             break;
         }

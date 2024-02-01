@@ -8,7 +8,7 @@ import { POLISH_DESCRIPTION_BY_SYMBOL_CODE } from './constants';
 
 import './WeatherLocation.scss';
 
-export const getWeatherForCordinates = async ({ latitude, longitude }: ICordinates): Promise<IWeatherStatus | undefined> => {
+ const getWeatherForCordinates = async ({ latitude, longitude }: ICordinates): Promise<IWeatherStatus | undefined> => {
     const isReady = latitude !== 0 && longitude !== 0;
     if (!isReady) {
         return;

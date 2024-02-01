@@ -5,7 +5,7 @@ import './Input.scss'
 interface Props {
     placeholder?: string,
     value: string,
-    onChange: (value: string) => void, // dd
+    onChange: (value: string) => void,
 }
 
 const Input = ({ placeholder, value, onChange }: Props) => {
