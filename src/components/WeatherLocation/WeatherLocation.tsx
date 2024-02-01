@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import clsx from 'clsx';
 
 import { getDistanceBetweenTwoPointsInKm } from '../../utils/distance';
 import { getLocationById } from '../../utils/search';
@@ -75,9 +76,7 @@ const WeatherLocation = ({
   latitude,
   longitude,
 }: Props) => {
-    const [errorMessage, setErrorMessage] = useState('');
-    // const [isLoading, setIsLoading] = useState(false);
-    const isSetUp = latitude !== 0 && longitude !== 0;
+    const [isLoaded, setIsLoaded] = useState(false);
 
     const {
         isLoading,
@@ -101,8 +100,11 @@ const WeatherLocation = ({
         unitWindSpeed,
     } = data ?? {};
 
-    console.log(data);
-    console.log(error);
+    const onLoad = () => {
+        setIsLoaded(true);
+    }
+
+    const isSetUp = latitude !== 0 && longitude !== 0;
 
     if (!isSetUp) {
         return null;
@@ -111,21 +113,33 @@ const WeatherLocation = ({
     return (
         <div className="weather-location">
             {isLoading ? <>Pobieranie...</> : <>
-                <img className="weather-location-icon" src={`./weather-icons/${weatherDescription}.svg`} />
+                <span
+                    className={clsx(
+                        'weather-location-icon-wrapper', { 
+                        'weather-location-icon-wrapper-with-loaded': isLoaded,
+                    })}
+                >
+                    <img
+                        className="weather-location-icon"
+                        src={`./weather-icons/${weatherDescription}.svg`}
+                        onLoad={onLoad}
+                    />
+                </span>
                 <small>
                     {weatherDescription}
                 </small>
                 <strong className="weather-location-temperature">
                     {temperature}<sup>o</sup>{unitTemperature.at(0).toUpperCase()}
                 </strong>
-                <p>
-                    {precipation}{unitPrecipitation}
-                </p>
-                <p>
-                    {windSpeed} {unitWindSpeed}
-                </p>            
+                <div className="weather-location-data">
+                    <p>
+                        Opady: {precipation} {unitPrecipitation}
+                    </p>
+                    <p>
+                        Wiatr: {windSpeed} {unitWindSpeed}
+                    </p>
+                </div>           
             </>}
-            {errorMessage && <>{errorMessage}</>}
         </div>
     );
 };
