@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import clsx from 'clsx';
 
 import { ICordinates, IWeatherStatus } from '../../types';
+
+import { POLISH_DESCRIPTION_BY_SYMBOL_CODE } from './constants';
 
 import './WeatherLocation.scss';
 
@@ -28,8 +30,6 @@ export const getWeatherForCordinates = async ({ latitude, longitude }: ICordinat
     } = rawData;
 
     const nowData = rawData.properties.timeseries[0].data;
-
-    console.log(nowData);
 
     const {
         instant: {
@@ -74,7 +74,7 @@ const WeatherLocation = ({
 
     const {
         isLoading,
-        // error,
+        error,
         data,
     } = useQuery({
         queryFn: () => getWeatherForCordinates({
@@ -93,6 +93,10 @@ const WeatherLocation = ({
         windSpeed,
         unitWindSpeed,
     } = data ?? {};
+
+    useEffect(() => {
+        setIsLoaded(false);
+    }, [weatherDescription])
 
     const onLoad = () => {
         setIsLoaded(true);
@@ -120,8 +124,8 @@ const WeatherLocation = ({
                             onLoad={onLoad}
                         />
                     </span>
-                    <small>
-                        {weatherDescription}
+                    <small className="weather-location-status">
+                        {POLISH_DESCRIPTION_BY_SYMBOL_CODE[weatherDescription || ''] ?? weatherDescription}
                     </small>
                     <strong className="weather-location-temperature">
                         {temperature}<sup>o</sup>{unitTemperature? unitTemperature[0].toUpperCase() : ''}
@@ -136,7 +140,7 @@ const WeatherLocation = ({
                     </div>           
                 </>}
             </div>
-            {!isLoading && <p></p>}
+            {!isLoading && !error && <p className="weather-location-source">Dane dzięki uprzejmości <strong>MET Norway</strong>.</p>}
         </>
     );
 };

@@ -21,8 +21,6 @@ function App() {
     longitude: 0,
   });
 
-  console.log(closestId);
-
   return (
     <QueryClientProvider client={queryClient}>
       <>

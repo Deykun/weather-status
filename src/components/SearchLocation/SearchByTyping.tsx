@@ -39,7 +39,7 @@ interface Props {
 const SearchLocation = ({ setNewLocation, closestId, onClose }: Props) => {
   const [phrase, setPhrase] = useState('');
 
-  const searchPhrase = useThrottle(phrase, 500);
+  const searchPhrase = useThrottle(phrase, 200);
 
   const searchResult = useMemo(() => {
     return searchBestLocationByPhrase(searchPhrase);

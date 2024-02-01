@@ -82,6 +82,10 @@ const sortLocations = (phraseLowerCased: string) => (a: ILocation, b: ILocation)
         return -1;
     }
 
+    if (a.type === 'city' && b.type !== 'city') {
+        return -1;
+    }
+
     return aNameLowerCased.localeCompare(bNameLowerCased);
 };
 
