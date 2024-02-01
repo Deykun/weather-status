@@ -32,7 +32,7 @@ interface Props {
   // setLocation: React.ReactNode,
 }
 
-const SearchLocation = ({ setLocation, closestId, onClose }: Props) => {
+const SearchLocation = ({ setNewLocation, closestId, onClose }: Props) => {
   const [phrase, setPhrase] = useState('');
 
   const searchPhrase = useThrottle(phrase, 500);
@@ -54,13 +54,13 @@ const SearchLocation = ({ setLocation, closestId, onClose }: Props) => {
     } = getLocationById(id) || {};
 
     if (latitude && longitude) {
-      setLocation(({
+      setNewLocation(({
         closestId: id,
         latitude,
         longitude,
       }));
     }
-  }, [setLocation])
+  }, [setNewLocation])
 
   return (
     <>

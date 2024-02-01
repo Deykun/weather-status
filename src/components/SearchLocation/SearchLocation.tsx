@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 
+import { getDistanceBetweenTwoPointsInKm } from '../../utils/distance';
 import { getLocationById } from '../../utils/search';
 
 import IconMarker from '../Icon/IconMarker';
@@ -7,6 +8,7 @@ import IconMarkerAlt from '../Icon/IconMarkerAlt';
 
 import Button from '../Button';
 
+import SearchByBrowserGeolocation from './SearchByBrowserGeolocation';
 import SearchByTyping from './SearchByTyping';
 
 interface Props {
@@ -24,30 +26,43 @@ const SearchLocation = ({
 }: Props) => {
   const [isSettingUp, setIsSettingUp] = useState(true);
 
-  useEffect(() => {
-    setIsSettingUp(false);
-  }, [closestId])
-
   const {
     name,
     province,
     district,
     commune,
+    distnceKm,
   } = useMemo(() => {
     const {
       name,
       province,
       district,
       commune,
+      latitude: locationLatitude,
+      longitude: locationLongitude,
     } = getLocationById(closestId) || {};
+
+    const distnceKm = getDistanceBetweenTwoPointsInKm({
+      latitude,
+      longitude,
+    }, {
+      latitude: locationLatitude || latitude,
+      longitude: locationLongitude || longitude,
+    })
 
     return {
       name,
       province,
       district,
       commune,
+      distnceKm,
     };
   }, [closestId]);
+
+  const handleNewLocation = (location) => {
+    setLocation(location)
+    setIsSettingUp(false);
+  }
 
   // getLocationById
 
@@ -58,18 +73,18 @@ const SearchLocation = ({
       <header>Weather status</header>
       <main>
         {shouldShowEditLocation ? <>
-          <Button>
-            <IconMarker />
-            <span>Na podstawie lokalizacji</span>
-          </Button>
+          <SearchByBrowserGeolocation setNewLocation={handleNewLocation} />
           <div className="or">
             lub
           </div>
-          <SearchByTyping closestId={closestId} onClose={() => setIsSettingUp(false)} setLocation={setLocation} />
+          <SearchByTyping closestId={closestId} onClose={() => setIsSettingUp(false)} setNewLocation={handleNewLocation} />
         </> : <Button className="result-button" onClick={() => setIsSettingUp(true)}>
             <h2>
               <IconMarkerAlt />
-              <span>{name}</span>
+              <span>
+                {name}
+                {distnceKm > 1 && <span className="result-distance">{distnceKm.toFixed(2)}km</span>}
+              </span>
             </h2>
             <p>
               {province}, {district}, {commune}

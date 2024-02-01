@@ -11,6 +11,7 @@
     color: var(--actionText);
     background-color: var(--actionButtonBackground);
     border-radius: var(--actionRadius);
+    position: relative;
     border: 2px solid transparent;
     transition: 0.15s ease-in-out;
 
@@ -30,5 +31,47 @@
         &:last-child:not(:first-child) {
             margin-left: 15px;
         }
+    }
+}
+
+.button-loading-state {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    border-radius: var(--actionRadius);
+    z-index: 1;
+    pointer-events: none;
+    animation: loaderState infinite linear reverse 1s;
+
+    svg {
+        animation: spin infinite linear reverse 1.5s;
+    }
+}
+
+@keyframes loaderState {
+    0% {
+        background-color: var(--actionButtonBackground);
+    }
+
+    50% {
+        background-color: var(--actionButtonBackgroundActive);
+    }
+
+    100% {
+        background-color: var(--actionButtonBackground);
+    }
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(-360deg);
     }
 }

@@ -1,4 +1,5 @@
 import polishCitiesAndVillages from 'polskie-miejscowosci';
+import { getDistanceBetweenTwoPointsInKm } from './distance';
 
 interface ILocation {
     id: string,
@@ -45,24 +46,42 @@ export const getLocationById = (id: string) => {
     return all.find(({ id: locationId }) => id === locationId);
 };
 
-const sortLocations = (phraseLowerCased: string) => (a: ILocation, b: ILocation) => {
-    console.log({
-        x: a.name.toLocaleLowerCase(),
-        phraseLowerCased,
+export const getClosestLocationToCordinates = (cordinateToCompare) => {
+    const {
+        id,
+    } = all.reduce((stack, item) => {
+        const distance = getDistanceBetweenTwoPointsInKm(cordinateToCompare, {
+            latitude: item.latitude,
+            longitude: item.longitude,
+        });
+
+        if (distance < stack.distance) {
+            stack.id = item.id;
+            stack.distance = distance;
+        }
+
+        return stack;
+    }, {
+        id: '',
+        distance: 99999,
     });
 
-    if (a.name.toLocaleLowerCase() === phraseLowerCased) {
-        console.log(phraseLowerCased);
-        console.log(phraseLowerCased);
-        console.log(phraseLowerCased);
-        console.log(phraseLowerCased);
-        console.log(phraseLowerCased);
-        console.log(phraseLowerCased);
+    return id;
+}
 
+const sortLocations = (phraseLowerCased: string) => (a: ILocation, b: ILocation) => {
+    const aNameLowerCased = a.name.toLocaleLowerCase();
+    const bNameLowerCased = b.name.toLocaleLowerCase();
+
+    if (aNameLowerCased === phraseLowerCased) {
         return -1;
     }
 
-    return 1;
+    if (aNameLowerCased.includes(phraseLowerCased) && !bNameLowerCased.includes(phraseLowerCased)) {
+        return -1;
+    }
+
+    return aNameLowerCased.localeCompare(bNameLowerCased);
 };
 
 export const searchBestLocationByPhrase = (phrase: string) => {
